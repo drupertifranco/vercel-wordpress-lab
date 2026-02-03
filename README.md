@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Headless WordPress Frontend (Next.js)
 
-## Getting Started
+Una aplicación web moderna construida con **Next.js** y **Tailwind CSS** que actúa como frontend para un sitio de WordPress headless.
 
-First, run the development server:
+## Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Stack Moderno**: Next.js 14+ (App Router), React, Tailwind CSS.
+- **Headless CMS**: Consume contenido de WordPress vía REST API.
+- **Optimizado**: Generación estática y manejo eficiente de imágenes con `next/image`.
+- **Diseño**: UI limpia y responsive con Tailwind CSS.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Requisitos Previos
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Node.js 18.17.0 o superior.
+- Un sitio de WordPress con la REST API habilitada (viene por defecto en WP 4.7+).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Instalación
 
-## Learn More
+1.  **Clonar el repositorio**:
+    ```bash
+    git clone <tu-repositorio-url>
+    cd vercel-wordpress
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Instalar dependencias**:
+    ```bash
+    npm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  **Configurar Variables de Entorno**:
+    Crea un archivo `.env.local` en la raíz del proyecto basándote en el archivo de ejemplo o usa el siguiente formato:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```env
+    NEXT_PUBLIC_WORDPRESS_API_URL=https://tu-sitio-wordpress.com/wp-json
+    ```
 
-## Deploy on Vercel
+4.  **Correr el Servidor de Desarrollo**:
+    ```bash
+    npm run dev
+    ```
+    Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Estructura del Proyecto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/`: Rutas de la aplicación (Home, Post Detail).
+- `lib/`: Capa de servicios y lógica de fetch (`wordpress.js`).
+- `docs/`: Documentación técnica detallada.
+
+## Documentación Técnica
+
+Para más detalles sobre la arquitectura y la integración con la API, consulta la carpeta `/docs`.

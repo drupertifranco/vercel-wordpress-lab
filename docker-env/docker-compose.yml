@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example_root_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress_user
+      MYSQL_PASSWORD: wordpress_password
+    networks:
+      wp-net:
+        ipv4_address: 172.20.0.3
+
+  wordpress:
+    image: wordpress:latest
+    depends_on:
+      - db
+    # Port mapping is optional if using Tunnel, but kept for local debugging
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: 172.20.0.3
+      WORDPRESS_DB_USER: wordpress_user
+      WORDPRESS_DB_PASSWORD: wordpress_password
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      wp-net:
+        ipv4_address: 172.20.0.5
+
+  tunnel:
+    image: cloudflare/cloudflared
+    restart: always
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    networks:
+      wp-net:
+
+networks:
+  wp-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  db_data:
+  wp_data:
