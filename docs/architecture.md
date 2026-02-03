@@ -8,12 +8,13 @@ La aplicación utiliza un patrón **Headless**, donde WordPress actúa únicamen
 
 ### Diagrama de Flujo de Datos
 
-1.  **Browser**: Solicita `https://sitio.com/blog/mi-post`.
-2.  **Next.js (Servidor)**:
+1.  **Browser**: Solicita `https://alquimist.dpdns.org/blog/mi-post`.
+2.  **Next.js (Servidor en Vercel)**:
     - Identifica la ruta dinámica `[slug]`.
     - Llama a `getPostBySlug(slug)` en `lib/wordpress.js`.
 3.  **Service Layer**:
-    - Hace un `fetch` a `WP_API_URL/wp/v2/posts?slug=mi-post&_embed`.
+    - Hace un `fetch` seguro a través de internet a la API expuesta por **Cloudflare Tunnel**:
+    - `https://blog-dev.alquimist.dpdns.org/wp-json/wp/v2/posts?slug=mi-post&_embed`.
 4.  **WordPress API**: Retorna JSON con el post y sus metadatos (autor, imagenes).
 5.  **Next.js (Render)**:
     - Genera el HTML con el contenido.
